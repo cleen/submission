@@ -10,7 +10,11 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
-
+	.input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         table {
             width: 60%;
             border-collapse: collapse;
@@ -63,7 +67,12 @@
     </tbody>
 </table>
 
-<button onclick="generateSubmission()">Generate</button>
+<div class="input-container">
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="generateSubmission()">Generate</button>
+	<span id='log'></span>
+</div>
 
 <div id="output">
     <!-- Generated submission will appear here -->
@@ -272,6 +281,14 @@ function getRandomHello() {
     });
 
     function generateSubmission() {
+ 
+	const password = document.getElementById("password").value;
+        
+        if (!password.toLowerCase().includes("pixley")) {
+            document.getElementById("log").innerHTML = "incorrect password. (hint: street)";
+            return;
+        }
+	    
         let submission = getRandomHello()+"\n\n";
 
         shuffle(items);
