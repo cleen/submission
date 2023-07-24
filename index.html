@@ -1,8 +1,128 @@
-<HTML>
-  <HEAD>
-    
-  </HEAD>
-  <body>
-    test
-  </body>
-</HTML>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Generator</title>
+</head>
+<body>
+
+<div id="itemsList">
+    <!-- Items will be populated here -->
+</div>
+
+<button onclick="generateSubmission()">Generate</button>
+
+<div id="output">
+    <!-- Generated submission will appear here -->
+</div>
+
+<script>
+    const items_v1 = [
+    { brief: "Property Address", full: "The property address of the proposed development is 25 Pixley Street, Kangaroo Point." },
+    { brief: "Height Proposed vs. Allowable", full: "The proposed development has a height of 23 storeys, which exceeds the allowable 8 storeys under the current town plan." },
+    { brief: "Lack of Development Info", full: "There's a concerning lack of detailed information within the proposed development documentation." },
+    { brief: "Inaccuracies in Documentation", full: "The proposed development documentation contains several inaccuracies." },
+    { brief: "Traffic Impact", full: "The proposed development will result in the loss of two public parking bays on the street, impacting traffic." },
+    { brief: "Setback on Both Sides", full: "The development has a setback on both its sides." },
+    { brief: "Front Setback on Pixley Street", full: "The development has a setback at its front, facing Pixley Street." },
+    { brief: "Rear Setback facing Brisbane River", full: "The development has a setback at its rear, which faces the Brisbane River." },
+    { brief: "Watermark Garden Setback", full: "The proposed development uses Watermark gardens as set back zones." },
+    { brief: "Watermark Building Proximity", full: "The Watermark building is located closer than the indicated 13 metres on the development's drawings." },
+    { brief: "View Impact on Watermark", full: "The development will significantly impact the views from Watermark apartments." },
+    { brief: "Privacy Impact on Watermark", full: "There is a potential invasion of privacy for residents of Watermark apartments due to the proposed development." },
+    { brief: "Watermark Garden Vegetation Impact", full: "The development might adversely affect the vegetation within the Watermark Garden." },
+    { brief: "Future Development Impact for Watermark", full: "The proposed development will impact potential future developments for Watermark." },
+    { brief: "Visibility of Olims Travelodge", full: "The iconic Olims Travelodge Heritage Building will be obscured from view when walking or cycling south, or even from river transport. The significance of a heritage building lies in its visibility to the public." },
+    { brief: "Community Expectations", full: "The development doesn't align with community expectations in terms of height, bulk, or site coverage as per the Kangaroo Point Peninsula neighbourhood plan or the Thornton Street Precinct Plan." },
+    { brief: "Overburdening Pixley Street", full: "Pixley street already serves two hundred apartments as an access point to the Story Bridge and Main street. These apartments utilize nine public street parking bays. Introducing an apartment complex that further constrains parking and adds more traffic strains the street's capacity." },
+    { brief: "Preservation of 96-year-old House", full: "The existing house on 25 Pixley street, with its rich 96-year history, deserves preservation rather than destruction." }
+];
+
+    const items_v2 = [
+    { brief: "Property Address", full: "25 Pixley Street, Kangaroo Point is the location designated for the planned development." },
+    { brief: "Height Proposed vs. Allowable", full: "While the current town planning permits 8 storeys, the new proposition suggests an ambitious 23-storey structure." },
+    { brief: "Lack of Development Info", full: "The documentation for the proposed development seems to be missing some crucial details." },
+    { brief: "Inaccuracies in Documentation", full: "Discrepancies and inaccuracies have been identified within the development's documentation." },
+    { brief: "Traffic Impact", full: "The traffic situation may worsen with the removal of two public parking spots due to the new development." },
+    { brief: "Setback on Both Sides", full: "There's a noticeable setback on both lateral sides of the proposed structure." },
+    { brief: "Front Setback on Pixley Street", full: "The frontage, looking out onto Pixley Street, also showcases a setback." },
+    { brief: "Rear Setback facing Brisbane River", full: "A setback has been designated at the back of the building, facing the scenic Brisbane River." },
+    { brief: "Watermark Garden Setback", full: "Interestingly, the Watermark gardens have been integrated into the setback zones of the development." },
+    { brief: "Watermark Building Proximity", full: "Contrary to the development sketches, the Watermark building seems closer than the specified 13 meters." },
+    { brief: "View Impact on Watermark", full: "Residents of Watermark apartments may need to brace for potentially compromised views." },
+    { brief: "Privacy Impact on Watermark", full: "Concerns about privacy breaches for Watermark apartment dwellers have been raised due to this development." },
+    { brief: "Watermark Garden Vegetation Impact", full: "The lush vegetation of the Watermark Garden may not remain unaffected by the upcoming development." },
+    { brief: "Future Development Impact for Watermark", full: "There's growing concern about how the development might influence any future initiatives for the Watermark premises." },
+    { brief: "Visibility of Olims Travelodge", full: "The renowned Olims Travelodge Heritage Building might lose its prominence and visibility, especially for those traveling southwards or on the river." },
+    { brief: "Community Expectations", full: "From the looks of it, the proposed development doesn't seem to resonate with the Kangaroo Point Peninsula neighbourhood's vision or the guidelines of the Thornton Street Precinct Plan." },
+    { brief: "Overburdening Pixley Street", full: "Introducing more traffic and reducing parking on Pixley Street, already a key access point for numerous apartments, might not be the best course of action." },
+    { brief: "Preservation of 96-year-old House", full: "Considering its rich history spanning 96 years, the current house on 25 Pixley Street merits protection and conservation." }
+];
+
+   const items_v3 = [
+    { brief: "Property Address", full: "The designated site for the upcoming project is none other than 25 Pixley Street, located in Kangaroo Point." },
+    { brief: "Height Proposed vs. Allowable", full: "It's noteworthy that the proposition is eyeing a 23-storey building, whereas the town's blueprint only green-lights a structure of 8 storeys." },
+    { brief: "Lack of Development Info", full: "It appears that the proposed development's documentation might be a tad scant on specifics." },
+    { brief: "Inaccuracies in Documentation", full: "There are certain inconsistencies peppered throughout the documentation of the proposed build." },
+    { brief: "Traffic Impact", full: "One can't help but notice that the advent of this project might see the demise of two public parking slots, which could ripple into traffic implications." },
+    { brief: "Setback on Both Sides", full: "The structure's blueprint features setbacks on both its flanking sides." },
+    { brief: "Front Setback on Pixley Street", full: "The front facade, facing the renowned Pixley Street, incorporates a setback in its design." },
+    { brief: "Rear Setback facing Brisbane River", full: "The blueprint shows a setback at the property's tail end, which has the Brisbane River as its backdrop." },
+    { brief: "Watermark Garden Setback", full: "An intriguing aspect of the design is the incorporation of the Watermark gardens into the designated setback zones." },
+    { brief: "Watermark Building Proximity", full: "The proximity of the Watermark building seems a smidge closer than the outlined 13 meters in the project sketches." },
+    { brief: "View Impact on Watermark", full: "The looming structure might cast a shadow, figuratively speaking, on the panoramic views currently enjoyed by Watermark's denizens." },
+    { brief: "Privacy Impact on Watermark", full: "Whispers of potential privacy encroachments for those residing in Watermark apartments are making the rounds, courtesy of this new development." },
+    { brief: "Watermark Garden Vegetation Impact", full: "The verdant greenery of Watermark Garden might be at the receiving end of some changes once the project takes off." },
+    { brief: "Future Development Impact for Watermark", full: "Rumblings suggest that this new edifice could dictate the trajectory of Watermark's forthcoming ventures." },
+    { brief: "Visibility of Olims Travelodge", full: "The cherished vistas of the Olims Travelodge Heritage Building may find themselves compromised, especially for those meandering south or cruising on the river." },
+    { brief: "Community Expectations", full: "A cursory glance suggests that the structure might not be in lockstep with the aspirations of the Kangaroo Point Peninsula community or the ethos of the Thornton Street Precinct Plan." },
+    { brief: "Overburdening Pixley Street", full: "Amplifying the vehicular flow and trimming down parking on Pixley Street, an artery for a slew of apartments, seems like a challenging tightrope walk." },
+    { brief: "Preservation of 96-year-old House", full: "The venerable abode at 25 Pixley Street, with a legacy of 96 years, undeniably beckons preservation." }
+];
+
+
+    // Function to get a random item version
+    function getRandomItemVersion(index) {
+        const randomNum = Math.floor(Math.random() * 3);
+        switch(randomNum) {
+            case 0:
+                return items_v1[index].full;
+            case 1:
+                return items_v2[index].full;
+            default:
+                return items_v3[index].full;
+        }
+    }
+
+    // Populate the list of items
+    items_v1.forEach((item, index) => {
+        const element = document.createElement("div");
+        element.innerHTML = `<label>${item.brief}: 
+                                <select id="item${index}">
+                                    <option value="include">Include</option>
+                                    <option value="exclude">Don't Include</option>
+                                </select>
+                            </label>`;
+        document.getElementById("itemsList").appendChild(element);
+    });
+
+    function generateSubmission() {
+        let submission = "To Brisbane Council,\n\n";
+
+        items_v1.forEach((item, index) => {
+            const selectElement = document.getElementById(`item${index}`);
+            if (selectElement.value === "include") {
+                submission += getRandomItemVersion(index) + "\n\n";
+            }
+        });
+
+        submission += "\n\nSincerely,\n[Your Name]\n[Your Address]\n[Your Phone Number]";
+
+        document.getElementById("output").innerText = submission;
+    }
+
+</script>
+
+</body>
+</html>
